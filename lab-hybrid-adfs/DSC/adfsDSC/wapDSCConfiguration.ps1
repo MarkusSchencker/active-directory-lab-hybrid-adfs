@@ -10,9 +10,8 @@ Configuration Main
     New-ItemProperty -path $RegPath2 -name SchUseStrongCrypto -value 1 -PropertyType DWORD
 
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-	Register-PSRepository -Default -Verbose
-	Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
-    $RegPath1 = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319"
+    Register-PSRepository -Name "PSGallery" -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
+	# Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 

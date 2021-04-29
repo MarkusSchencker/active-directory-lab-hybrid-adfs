@@ -36,8 +36,8 @@ configuration DomainController
     New-ItemProperty -path $RegPath2 -name SchUseStrongCrypto -value 1 -PropertyType DWORD
 
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-	Register-PSRepository -Default -Verbose
-	Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+    Register-PSRepository -Name "PSGallery" -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
+	# Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 
     
     $wmiDomain      = Get-WmiObject Win32_NTDomain -Filter "DnsForestName = '$( (Get-WmiObject Win32_ComputerSystem).Domain)'"
