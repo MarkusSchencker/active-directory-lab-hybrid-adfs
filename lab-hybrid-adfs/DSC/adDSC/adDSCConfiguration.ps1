@@ -26,6 +26,9 @@ configuration DomainController
         [Int]$RetryIntervalSec=30
     )
     
+    # enable TLS1.2 to prevent access failure with PowerShell Gallery
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    
     $wmiDomain      = Get-WmiObject Win32_NTDomain -Filter "DnsForestName = '$( (Get-WmiObject Win32_ComputerSystem).Domain)'"
     $shortDomain    = $wmiDomain.DomainName
     $DomainName     = $wmidomain.DnsForestName
