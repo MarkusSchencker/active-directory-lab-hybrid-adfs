@@ -27,7 +27,9 @@ configuration DomainController
     )
     
     # enable TLS1.2 to prevent access failure with PowerShell Gallery
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+	Register-PSRepository -Default -Verbose
+	Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
     
     $wmiDomain      = Get-WmiObject Win32_NTDomain -Filter "DnsForestName = '$( (Get-WmiObject Win32_ComputerSystem).Domain)'"
     $shortDomain    = $wmiDomain.DomainName
