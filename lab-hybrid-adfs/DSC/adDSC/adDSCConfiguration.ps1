@@ -25,7 +25,24 @@ configuration DomainController
         [Int]$RetryCount=20,
         [Int]$RetryIntervalSec=30
     )
-    
+    $RegPath1 = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319"
+
+New-ItemProperty -path $RegPath1 `
+-name SystemDefaultTlsVersions -value 1 -PropertyType DWORD
+
+New-ItemProperty -path $RegPath1 `
+-name SchUseStrongCrypto -value 1 -PropertyType DWORD
+
+ 
+
+$RegPath2 = "HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319"
+
+New-ItemProperty -path $RegPath2 `
+-name SystemDefaultTlsVersions -value 1 -PropertyType DWORD
+
+New-ItemProperty -path $RegPath2 `
+-name SchUseStrongCrypto -value 1 -PropertyType DWORD
+
     # enable TLS1.2 to prevent access failure with PowerShell Gallery
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 	Register-PSRepository -Default -Verbose
