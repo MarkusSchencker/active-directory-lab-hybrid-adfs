@@ -38,7 +38,8 @@ configuration DomainController
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
     Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
     # Register-PSRepository -Name "PSGallery" -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
-	Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+    Register-PSRepository -Default -InstallationPolicy Trusted
+	# Set-pSRepository -Name "PSGallery" -InstallationPolicy Trusted
 
     
     $wmiDomain      = Get-WmiObject Win32_NTDomain -Filter "DnsForestName = '$( (Get-WmiObject Win32_ComputerSystem).Domain)'"
